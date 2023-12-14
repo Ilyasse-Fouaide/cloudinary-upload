@@ -1,6 +1,7 @@
 const express = require("express");
 const config = require("./config");
 const productRouter = require("./routes/product.router");
+const imageRouter = require("./routes/image.router");
 const notFound = require("./middlewares/notFound");
 const errorHandler = require("./middlewares/errorHandler");
 const connect = require("./db")
@@ -11,6 +12,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use("/api/v1", productRouter);
+app.use("/api/v1/images", imageRouter);
 app.use(notFound);
 app.use(errorHandler);
 
