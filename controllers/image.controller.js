@@ -40,7 +40,8 @@ module.exports.upload = tryCatchWrapper(async (req, res, next) => {
     folder: "upload-file"
   });
 
-  fs.unlinkSync(req.files.tempFilePath)
+  // we store the image uploaded temporary then we delete it
+  fs.unlinkSync(req.files.image.tempFilePath)
 
   res.status(StatusCodes.OK).json({
     success: true,
