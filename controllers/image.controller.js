@@ -4,9 +4,17 @@ const path = require("path");
 const { badRequestError } = require("../customError");
 
 module.exports.upload = tryCatchWrapper(async (req, res, next) => {
-  const { image } = req.files;
+  if (!req.files) {
+    return next(badRequestError("Path `image` is required!."))
+  }
 
-  // return a string `../public/upload/images/name.jpg`
+  const image = req.files.image;
+
+  if (!image.mimetype.slit("/")[0] === "image") {
+    return next(badRequestError(`Invalid file type "${image.name}" provided.`));
+  }
+
+  // return a string `__dirname + ../public/upload/images/name.jpg`
   const destination = path.join(__dirname, "../public/upload/images", image.name);
 
   image.mv(destination, (err) => {
