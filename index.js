@@ -5,9 +5,11 @@ const imageRouter = require("./routes/image.router");
 const notFound = require("./middlewares/notFound");
 const errorHandler = require("./middlewares/errorHandler");
 const connect = require("./db")
+const fileUpload = require("express-fileupload")
 
 const app = express();
 
+app.use(fileUpload())
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
