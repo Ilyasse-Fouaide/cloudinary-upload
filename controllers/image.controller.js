@@ -7,7 +7,7 @@ module.exports.upload = tryCatchWrapper(async (req, res, next) => {
   const { image } = req.files;
 
   // return a string `../public/upload/images/name.jpg`
-  const destination = path.join("../public/upload/images", image.name);
+  const destination = path.join(__dirname, "../public/upload/images", image.name);
 
   image.mv(destination, (err) => {
     if (err) {
