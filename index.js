@@ -7,6 +7,9 @@ const connect = require("./db")
 
 const app = express();
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
 app.use("/api/v1", productRouter);
 app.use(notFound);
 app.use(errorHandler);
