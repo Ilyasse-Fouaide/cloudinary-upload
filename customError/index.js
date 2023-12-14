@@ -16,6 +16,7 @@ const notFoundError = (message) => {
 }
 
 module.exports = {
+  CustomError,
   badRequestError,
   notFoundError
 }
