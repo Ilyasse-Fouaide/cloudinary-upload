@@ -4,10 +4,17 @@ const productRouter = require("./routes/product.router");
 const imageRouter = require("./routes/image.router");
 const notFound = require("./middlewares/notFound");
 const errorHandler = require("./middlewares/errorHandler");
-const connect = require("./db")
-const fileUpload = require("express-fileupload")
+const connect = require("./db");
+const fileUpload = require("express-fileupload");
+const { v2: cloudinary } = require("cloudinary");
 
 const app = express();
+
+cloudinary.config({
+  cloud_name: config.CLOUD_NAME,
+  api_key: config.CLOUD_API_KEY,
+  api_secret: config.CLOUD_API_SECRET
+});
 
 app.use(express.static("./public"))
 app.use(fileUpload())
