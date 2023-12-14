@@ -10,8 +10,12 @@ module.exports.upload = tryCatchWrapper(async (req, res, next) => {
 
   const image = req.files.image;
 
-  if (!image.mimetype.slit("/")[0] === "image") {
+  if (image.mimetype.split("/")[0] !== "image") {
     return next(badRequestError(`Invalid file type "${image.name}" provided.`));
+  }
+
+  if (image.size > 700000) {  // 700kb
+    return next(badRequestError("Image size exceeds the limit of 700kb"));
   }
 
   // return a string `__dirname + ../public/upload/images/name.jpg`
