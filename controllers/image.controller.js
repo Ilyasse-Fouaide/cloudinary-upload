@@ -3,6 +3,7 @@ const { StatusCodes } = require("http-status-codes");
 const tryCatchWrapper = require("../tryCatchWrapper");
 const path = require("path");
 const { badRequestError } = require("../customError");
+const fs = require("fs");
 
 // module.exports.upload = tryCatchWrapper(async (req, res, next) => {
 //   if (!req.files) {
@@ -34,10 +35,13 @@ const { badRequestError } = require("../customError");
 // })
 
 module.exports.upload = tryCatchWrapper(async (req, res, next) => {
-  console.log(req.files)
   const uploadedImage = await cloudinary.uploader.upload(req.files.image.tempFilePath, {
     use_filename: true,
     folder: "upload-file"
   });
-  console.log(uploadedImage);
+
+  res.stats(StatusCodes.OK).json({
+    success: true,
+    secure_url: uploadedImage.secure_url
+  })
 })

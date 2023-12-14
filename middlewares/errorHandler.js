@@ -24,13 +24,17 @@ const errorHandler = (err, req, res, next) => {
     })
   }
 
-  res.status(500).json({
-    success: false,
-    error: {
-      status: StatusCodes.INTERNAL_SERVER_ERROR,
-      err
-    }
-  })
+  if (err.error.errno && err.error.errno === -3008 && err.error.code === "ENOTFOUND") {
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      success: false,
+      error: {
+        status: StatusCodes.INTERNAL_SERVER_ERROR,
+        message: `Something wrong with ${err.error.hostname}, check your network`
+      }
+    })
+  }
+
+  res.status(500).json({ err })
 }
 
 module.exports = errorHandler

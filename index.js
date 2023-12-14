@@ -16,7 +16,7 @@ cloudinary.config({
   api_secret: config.CLOUD_API_SECRET
 });
 
-app.use(express.static("./public"));
+app.use(express.static("./tmp"));
 app.use(fileUpload({ useTempFiles: true }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
