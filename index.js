@@ -11,7 +11,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.use("/api/v1", productRouter);
+app.use("/api/v1/products", productRouter);
 app.use("/api/v1/images", imageRouter);
 app.use(notFound);
 app.use(errorHandler);
