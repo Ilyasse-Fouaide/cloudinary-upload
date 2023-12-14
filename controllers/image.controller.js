@@ -40,7 +40,9 @@ module.exports.upload = tryCatchWrapper(async (req, res, next) => {
     folder: "upload-file"
   });
 
-  res.stats(StatusCodes.OK).json({
+  fs.unlinkSync(req.files.tempFilePath)
+
+  res.status(StatusCodes.OK).json({
     success: true,
     secure_url: uploadedImage.secure_url
   })

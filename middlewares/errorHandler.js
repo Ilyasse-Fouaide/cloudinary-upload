@@ -24,7 +24,7 @@ const errorHandler = (err, req, res, next) => {
     })
   }
 
-  if (err.error.errno && err.error.errno === -3008 && err.error.code === "ENOTFOUND") {
+  if (err.error && err.error.errno === -3008 && err.error.code === "ENOTFOUND") {
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
       success: false,
       error: {
@@ -34,7 +34,7 @@ const errorHandler = (err, req, res, next) => {
     })
   }
 
-  res.status(500).json({ err })
+  res.status(500).json({ err: err })
 }
 
 module.exports = errorHandler
